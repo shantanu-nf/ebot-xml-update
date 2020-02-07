@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <style>
+        #loading {
+            background: url('Preloader_2.gif') no-repeat center center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 9999999;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+        $("#uploadBtn").click(function () {
+            $('#loading').show();
+        });
+    </script>
+</head>
+
+<body>
+    <div id="loading" style="display: none;"></div>
+    <div class=formDiv>
+        <form ref='uploadForm' id='uploadForm' action='/upload' method='post' encType="multipart/form-data">
+            <input type="file" name="sampleFile" />
+            <input type='submit' id'uploadBtn' value='Upload!' />
+        </form>
+    </div>
+</body>
+
+</html>

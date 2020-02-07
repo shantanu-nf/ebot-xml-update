@@ -1,0 +1,20 @@
+{
+  "name": "nf-bot-xml-modifier",
+  "version": "1.0.0",
+  "description": "Adds reporting apex invocation node to dialogs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shantanu (shantanu.srivastava@neuraflash.com)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
+    "fs": "0.0.1-security",
+    "multer": "^1.4.2",
+    "path": "^0.12.7",
+    "url": "^0.11.0",
+    "xml2js": "^0.4.23"
+  }
+}
