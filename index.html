@@ -1,34 +1,61 @@
 <html>
 
 <head>
-    <style>
-        #loading {
-            background: url('Preloader_2.gif') no-repeat center center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            z-index: 9999999;
-        }
-    </style>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="/snackbar.min.js"></script>
     <script>
         $("#uploadBtn").click(function () {
             $('#loading').show();
+            Snackbar.show({
+                pos: 'top-center',
+                text: 'Updated bot xml file downloaded'
+            });
         });
+        $(document).ready(
+            function () {
+                $('input:file').change(
+                    function () {
+                        if ($(this).val()) {
+                            $('input:submit').attr('disabled', false);
+                        }
+                    }
+                );
+            });
     </script>
 </head>
 
 <body>
     <div id="loading" style="display: none;"></div>
-    <div class=formDiv>
-        <p>Upload the single bot xml downloaded via workbench.</p>
-        <form ref='uploadForm' id='uploadForm' action='/upload' method='post' encType="multipart/form-data">
-            <input type="file" name="sampleFile" />
-            <input type='submit' id'uploadBtn' value='Upload!' />
-        </form>
+    <div class="container">
+        <div class="formDiv jumbotron">
+            <div class="infoDiv">
+                <h2 class="display-4">Bot XML Updater</h2>
+                <p class="lead">Validates and Adds Reporting Apex Calls and Variables</p>
+            </div>
+            <br />
+            <p>Upload einstein bot xml file downloaded via <a
+                    href="https://workbench.developerforce.com/metadataRetrieve.php" target="_blank">
+                    Workbench</a></p>
+            <form ref='uploadForm' id='uploadForm' action='/upload' method='post' encType="multipart/form-data"
+                accept=".xml, .bot">
+                <input class="btn btn-xs btn-default" type="file" name="sampleFile" />
+                <input class="btn btn-xs btn-primary" type='submit' id'uploadBtn' value='Upload!' disabled />        
+            </form>
+            <span>
+                <img class="botImg" src="bot.png">
+            </span>
+            <span class="note">Updated file will be automatically downloaded once proccessed!</span>
+        </div>
     </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">© 2020 NeuraFlash, LLC</p>
+        </div>
+    </footer>
 </body>
 
 </html>

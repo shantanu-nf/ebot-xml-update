@@ -1,4 +1,4 @@
-const fs = require('fs'),
+const fs = require('fs-extra'),
     xml2js = require('xml2js');
 const path = require('path');
 const config = require(path.join(__dirname + '/config.js'));
@@ -6,9 +6,8 @@ const util = require(path.join(__dirname + '/util.js'));
 const xml_handler = {}
 
 var botJsonInfo = {};
-xml_handler.parseXml = function (file, callback) {
+xml_handler.parseXml = function (fieName, file, callback) {
     xml2js.parseString(file, (err, result) => {
-
         /* Capture Initial stage metrics */
         botJsonInfo = {
             'dialogs': result.Bot.botVersions[0].botDialogs,
@@ -45,13 +44,17 @@ xml_handler.parseXml = function (file, callback) {
         var updatedXml = builder.buildObject(result);
         //console.log(updatedXml);
         console.log(botJsonInfo.dialogsUpdatedCount);
-        callback(err, updatedXml);
+        fs.writeFile(__dirname + '/uploads/' + fieName, updatedXml, function (err) {
+            delete botJsonInfo.dialogs;
+            delete botJsonInfo.conversationVariables;
+            callback(err, botJsonInfo);
+        });
     });
 }
 
 xml_handler.readBotXml = function (fieName, callback) {
-    fs.readFile(__dirname + '/uploads/' + fieName, function(err, data) {
-        xml_handler.parseXml(data, callback);
+    fs.readFile(__dirname + '/uploads/' + fieName, function (err, data) {
+        xml_handler.parseXml(fieName, data, callback);
     });
 }
 

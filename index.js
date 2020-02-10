@@ -1,12 +1,16 @@
-const path = require('path');
+const fs = require('fs-extra'),
+    path = require('path');
 const config = require(path.join(__dirname + '/config.js'));
 const xml_handler = require(path.join(__dirname + '/xml_handler.js'));
 const util = require(path.join(__dirname + '/util.js'));
 const url = require('url');
 const express = require('express');
 const fileUpload = require('express-fileupload');
+const pug = require('pug');
 
 const app = express();
+app.set('view engine', 'pug')
+
 app.use(express.static('public'));
 
 app.use(fileUpload({
@@ -21,9 +25,10 @@ app.get('/', (req, res) => {
             res.download(__dirname + '/uploads/' + req.query.fn);
         });
     } else {
+        //Remove Directoy to get a clean slate
+        fs.removeSync(__dirname + '/uploads');
         res.sendFile(__dirname + '/index.html');
     }
-
 });
 
 app.post('/upload', function (req, res) {

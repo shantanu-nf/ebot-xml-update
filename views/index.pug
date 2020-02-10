@@ -1,0 +1,38 @@
+head
+    // Latest compiled and minified CSS
+    link(rel='stylesheet' href='/style.css')
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src='https://code.jquery.com/jquery-2.2.4.min.js')
+    script(src='/snackbar.min.js')
+    script.
+        $("#uploadBtn").click(function () {
+        $('#loading').show();
+        Snackbar.show({pos: 'top-center',text: 'Updated bot xml file downloaded'});
+        });
+        $(document).ready(
+        function () {
+        $('input:file').change(
+        function () {
+        if ($(this).val()) {
+        $('input:submit').attr('disabled', false);
+        }
+        }
+        );
+        });
+#loading(style='display: none;')
+.container
+    .formDiv.jumbotron
+        p
+            | Upload einstein bot xml file downloaded via 
+            a(href='https://workbench.developerforce.com/metadataRetrieve.php' target='_blank')
+                | Workbench
+        form#uploadForm(ref='uploadForm' action='/upload' method='post' enctype='multipart/form-data' accept='.xml, .bot')
+            input.btn.btn-xs.btn-default(type='file' name='sampleFile')
+            input.btn.btn-xs.btn-primary(type='submit' value='Upload!' disabled='disabled')
+        span
+            img.botImg(src='bot.png')
+    .resultDiv
+            span= message
+footer.footer
+    .container
+        p.text-muted &copy; 2020 NeuraFlash, LLC
